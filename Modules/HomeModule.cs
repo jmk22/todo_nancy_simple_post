@@ -1,6 +1,8 @@
 using Nancy;
 using nancytest.Objects;
 using Nancy.ModelBinding;
+using System;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -11,8 +13,14 @@ namespace HelloWorld
         {
             Get["/"] = _ => View["index.html"];
 
+            Get["/greeting_card_form"] = _ => View["greetingcardform.html"];
+
             Post["/post_page"] = _ => {
-              var formPage = this.Bind<FormVariables>();
+              var formsubmission = new FormVariables {
+                Sender = Request.Form["person1"],
+                Recipient = Request.Form["person2"]
+              };
+              var formPage = this.BindTo(formsubmission);
               return View["postpage.html", formPage];
             };
         }
