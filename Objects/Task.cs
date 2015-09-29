@@ -2,6 +2,21 @@ namespace nancytest.Objects
 {
   public class Task
   {
-    public string Description { get; set; }
+    private string _description;
+
+    public Task(string Description)
+    {
+      _description = Description;
+    }
+
+    public string getDescription()
+    {
+      return _description;
+    }
+
+    public void setDescription(string newDescription)
+    {
+      _description = newDescription;
+    }
   }
 }
