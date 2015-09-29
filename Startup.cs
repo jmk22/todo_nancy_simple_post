@@ -1,8 +1,9 @@
-namespace HelloWorld
+namespace ToDoList
 {
     using Microsoft.AspNet.Builder;
     using Nancy.Owin;
     using Nancy;
+    using System.IO;
 
     public class Startup
     {
@@ -15,7 +16,7 @@ namespace HelloWorld
     {
         public string GetRootPath()
         {
-            return "/Users/jillkuchman/Documents/csharp-samples/nancy/helloworldnancy";
+          return Directory.GetCurrentDirectory();
         }
     }
 }

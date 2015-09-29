@@ -1,27 +1,32 @@
 using Nancy;
 using nancytest.Objects;
 using Nancy.ModelBinding;
-using System;
-using System.IO;
+using System.Collections.Generic;
 
-namespace HelloWorld
+namespace ToDoList
 {
 
     public class HomeModule : NancyModule
     {
         public HomeModule()
         {
-            Get["/"] = _ => View["index.html"];
+            Get["/"] = _ => {
+              Task TestTask = new Task();
+              TestTask.Description = "Learn C#";
+              Task AnotherTestTask = new Task();
+              AnotherTestTask.Description = "Learn .NET";
+              Task ThirdTask = new Task();
+              ThirdTask.Description = "Conquer the world";
 
-            Get["/greeting_card_form"] = _ => View["greetingcardform.html"];
+              Task[] ListOfTasks = new Task[] {TestTask, AnotherTestTask, ThirdTask};
 
-            Post["/post_page"] = _ => {
-              var formsubmission = new FormVariables {
-                Sender = Request.Form["person1"],
-                Recipient = Request.Form["person2"]
-              };
-              var formPage = this.BindTo(formsubmission);
-              return View["postpage.html", formPage];
+              string Output = "";
+
+              foreach (Task task in ListOfTasks) {
+                Output = Output + "<p>" + task.Description + "</p>";
+              }
+
+              return Output;
             };
         }
     }
