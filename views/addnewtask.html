@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>To Do List</title>
   </head>
   <body>
-    <h1>To Do List</h1>
+    <h1>Here is your list of tasks:</h1>
+    @Each.MyTasks
+      @Current
+    @EndEach
     <form action="/newtaskadded" method="post">
       <label for="newtask">Add a new task:</label>
       <input id="newtask" name="newtask" type="text">

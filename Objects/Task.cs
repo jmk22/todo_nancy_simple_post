@@ -1,22 +1,34 @@
 namespace nancytest.Objects
 {
+  using System;
+  using System.Collections.Generic;
   public class Task
   {
-    private string _description;
+    // private string _description;
+    //
+    // public Task(string Description)
+    // {
+    //   _description = Description;
+    // }
+    //
+    // public string getDescription()
+    // {
+    //   return _description;
+    // }
+    //
+    // public void setDescription(string newDescription)
+    // {
+    //   _description = newDescription;
+    // }
+    public string Description {get; set;}
 
-    public Task(string Description)
-    {
-      _description = Description;
-    }
+    // public static string ListOfTasks = "List of Tasks";
 
-    public string getDescription()
-    {
-      return _description;
-    }
+    public static List<string> ListOfTasks = new List<string> {};
 
-    public void setDescription(string newDescription)
+    public static void Save(string NewTask)
     {
-      _description = newDescription;
+      ListOfTasks.Add(NewTask);
     }
   }
 }

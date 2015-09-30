@@ -1,8 +1,8 @@
 using Nancy;
 using nancytest.Objects;
 using Nancy.ModelBinding;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace ToDoList
 {
@@ -11,20 +11,44 @@ namespace ToDoList
     {
         public HomeModule()
         {
-            Get["/"] = _ => {
-              Task TestTask = new Task("Learn C#");
-              Task AnotherTestTask = new Task("Learn .NET");
-              Task ThirdTask = new Task("Conquer the internet");
+            // Get["/"] = _ => {
+            //   Task TestTask = new Task("Learn C#");
+            //   Task AnotherTestTask = new Task("Learn .NET");
+            //   Task ThirdTask = new Task("Conquer the internet");
+            //
+            //   Task[] ListOfTasks = new Task[] {TestTask, AnotherTestTask, ThirdTask};
+            //
+            //   string Output = "";
+            //
+            //   foreach (Task task in ListOfTasks) {
+            //     Output = Output + "<p>" + task.getDescription() + "</p>";
+            //   }
+            //
+            //   return Output;
+            //
+            // };
 
-              Task[] ListOfTasks = new Task[] {TestTask, AnotherTestTask, ThirdTask};
+            Get["/"] = _ => View["index.html"];
 
-              string Output = "";
+            Post["/newtaskadded"] = _ => {
+              var NewTask = new Task
+              {
+                Description = Request.Form["newtask"]
+              };
 
-              foreach (Task task in ListOfTasks) {
-                Output = Output + "<p>" + task.getDescription() + "</p>";
-              }
+              //add NewTask to ListOfTasks
+              Console.WriteLine(NewTask.Description);
+              Task.Save(NewTask.Description);
+              Console.WriteLine(Task.ListOfTasks);
+              var NewTaskAdded = this.BindTo(NewTask);
+              return View["newtaskadded.html", NewTaskAdded];
+            };
 
-              return Output;
+            Get["/addnewtask"] = _ => {
+              string[] TaskList = {"Task 1", "Task 2"};
+
+              var MyTasks = this.BindTo(TaskList);
+              return View["addnewtask.html", MyTasks];
             };
         }
     }
